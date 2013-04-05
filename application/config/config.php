@@ -13,9 +13,12 @@
 | If this is not set then CodeIgniter will guess the protocol, domain and
 | path to your installation.
 |
-*/
-//$config['base_url']	= 'http://rfid.niu.edu.tw/epcrfid/RFID/';
-$config['base_url']	= 'http://127.0.0.1/RFID/';
+ */
+if ($_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "localhost") {
+	$config['base_url']	= 'http://127.0.0.1/RFID/';
+} else {
+	$config['base_url']	= 'http://rfid.niu.edu.tw/epcrfid/RFID/';
+}
 
 /*
 |--------------------------------------------------------------------------
