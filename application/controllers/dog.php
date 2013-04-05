@@ -32,10 +32,23 @@ class Dog extends CI_Controller {
 
 	public function info($id = 0)
 	{
+		$this->load->library('session');
 		if ($id == 0) {
+			$this->load->model("DogModel", "Dog", true);
+			$content = "";
 			$query = $this->db->get("Dog");
 			$result = $query->result();
-			print_r($result);
+			foreach ($result as $row) {
+				$this->Dog->init($row);
+				$content .= $this->load->view("DogInfo", array(
+					"dog" => $this->Dog
+				), true);
+			}
+			$this->load->view("Home", array(
+				"name" => $this->session->userdata("name"),
+				"content" => $this->load->view("DogInfoList", array("HTMLList" => $content), true),
+				"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
+			));
 		
 		} else {
 			$query = $this->db->get_where("Dog", array("id" => $id));

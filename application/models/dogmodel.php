@@ -6,6 +6,7 @@ class DogModel extends CI_Model {
 	public $gender;
 	public $breed;
 	public $region;
+	public $image;
 
     function __construct()
     {
