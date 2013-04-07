@@ -50,8 +50,6 @@ class DogModel extends CI_Model {
 				$num = sprintf("%03d", $row->num + 1);
 			}
 			$this->id = ($this->gender . $this->region . $this->breed . $today . $num);
-			echo $sql;
-			echo $this->id;
 			$this->db->insert("Dog", array(
 				"id" => $this->id,
 				"name" => $this->name,
@@ -61,14 +59,21 @@ class DogModel extends CI_Model {
 				"region" => $this->region
 			));
 		} else {
+			$newid = ($this->gender . $this->region . $this->breed . substr($this->id, 15));
 			$this->db->where("id", $this->id);
 			$this->db->update("Dog", array(
 				"name" => $this->name,
 				"birthday" => $this->birthday,
 				"gender" => $this->gender,
 				"breed" => $this->breed,
-				"region" => $this->region
+				"region" => $this->region,
+				"id" => $newid
 			));
 		}
+	}
+
+	public function getId()
+	{
+		return $this->id;
 	}
 }

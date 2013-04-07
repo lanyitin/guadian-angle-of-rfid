@@ -27,9 +27,39 @@ class Dog extends CI_Controller {
 		$this->load->model("DogModel", "newDog", true);
 		$this->newDog->init($this->input->post());
 		$this->newDog->save();
-		//redirect("dog/info/" . $this->newDog->id);
+		redirect("dog/info");
 	}
 
+	public function modify($id) 
+	{
+		$this->load->model("DogModel", "Dog", true);
+		if (!$this->validateModifyForm()) {
+			$this->load->library('session');
+			$query = $this->db->get_where("Dog", array("id" => $id));
+			if ($query->num_rows()) {
+				$this->Dog->init($query->row());
+				$breedQuery = $this->db->get("DogBreed");
+				$breedResult = $breedQuery->result();
+
+				$regionQuery = $this->db->get("Region");
+				$regionResult = $regionQuery->result();
+
+				$this->load->view("Home", array(
+					"name" => $this->session->userdata("name"),
+					"content" => $this->load->view("DogModify", array(
+						"dogBreedList" => $breedResult,
+						"regionList" => $regionResult,
+						"dog" => $this->Dog
+					), true),
+					"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
+				));
+			}
+			return;
+		}
+		$this->Dog->init($this->input->post());
+		$this->Dog->save();
+		redirect("dog/info");
+	}
 	public function info($id = 0)
 	{
 		$this->load->library('session');
@@ -49,7 +79,7 @@ class Dog extends CI_Controller {
 				"content" => $this->load->view("DogInfoList", array("HTMLList" => $content), true),
 				"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
 			));
-		
+
 		} else {
 			$query = $this->db->get_where("Dog", array("id" => $id));
 			if ($query->num_rows() == 0) {
@@ -65,6 +95,12 @@ class Dog extends CI_Controller {
 		}
 	}
 
+	public function delete($id)
+	{
+		$query = $this->db->where(array("id" => $id));
+		$query = $this->db->delete("Dog");
+		redirect("dog/info");
+	}
 	private function validateRegisterForm()
 	{
 		$this->load->library('form_validation');
@@ -75,6 +111,17 @@ class Dog extends CI_Controller {
 		$this->form_validation->set_rules('birthday', 'birthday', 'trim|required');
 		$this->form_validation->set_rules('region', 'region', 'trim|required');
 		return $this->form_validation->run();
-	
+	}
+	private function validateModifyForm()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('id', 'id', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('gender', 'gender', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('breed', 'breed', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('region', 'region', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('birthday', 'birthday', 'trim|required');
+		$this->form_validation->set_rules('region', 'region', 'trim|required');
+		return $this->form_validation->run();
 	}
 }
