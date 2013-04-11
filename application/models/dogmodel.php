@@ -1,6 +1,7 @@
 <?php
 class DogModel extends CI_Model {
 	private $id = null;
+	private $Uhf = null;
 	public $name;
 	public $birthday;
 	public $gender;
@@ -85,6 +86,6 @@ class DogModel extends CI_Model {
 	}
 	public function getUhf()
 	{
-		return $this->Uhf;
+		return $this->uhf;
 	}
 }
