@@ -19,6 +19,9 @@ class DogModel extends CI_Model {
 			if (isset($params["id"])) {
 				$this->id = $params["id"];
 			}
+			if (isset($params["uhf"])) {
+				$this->uhf = $params["uhf"];
+			}
 			$this->name = $params["name"];
 			$this->birthday = $params["birthday"];
 			$this->gender = $params["gender"];
@@ -27,6 +30,9 @@ class DogModel extends CI_Model {
 		} else if (is_object($params)){
 			if (isset($params->id)) {
 				$this->id = $params->id;
+			}
+			if (isset($params->uhf)) {
+				$this->uhf = $params->uhf;
 			}
 			$this->name = $params->name;
 			$this->birthday = $params->birthday;
@@ -49,7 +55,7 @@ class DogModel extends CI_Model {
 				$row = $query->row();
 				$num = sprintf("%03d", $row->num + 1);
 			}
-			$this->id = ($this->gender . $this->region . $this->breed . $today . $num);
+			$this->uhf = ($this->gender . $this->region . $this->breed . $today . $num);
 			$this->db->insert("Dog", array(
 				"id" => $this->id,
 				"name" => $this->name,
@@ -58,16 +64,17 @@ class DogModel extends CI_Model {
 				"breed" => $this->breed,
 				"region" => $this->region
 			));
+			$this->id = $this->db->insert_id();
 		} else {
-			$newid = ($this->gender . $this->region . $this->breed . substr($this->id, 15));
-			$this->db->where("id", $this->id);
+			$newuhf = ($this->gender . $this->region . $this->breed . substr($this->uhf, 15));
+			$this->db->where("uhf", $this->uhf);
 			$this->db->update("Dog", array(
 				"name" => $this->name,
 				"birthday" => $this->birthday,
 				"gender" => $this->gender,
 				"breed" => $this->breed,
 				"region" => $this->region,
-				"id" => $newid
+				"uhf" => $newuhf
 			));
 		}
 	}
@@ -75,5 +82,9 @@ class DogModel extends CI_Model {
 	public function getId()
 	{
 		return $this->id;
+	}
+	public function getUhf()
+	{
+		return $this->Uhf;
 	}
 }

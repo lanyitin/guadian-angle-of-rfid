@@ -35,8 +35,8 @@
 		<div class="controls">
 			<div id="breedButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($dogBreedList as $item): ?>
-				<button type="button" class="btn " onclick="$('#inputBreed').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
-				<? endforeach ?>
+				<button type="button" class="btn " onclick="$('#inputBreed').val('<?php echo $item->id; ?>');"><?php echo $item->title; ?></button>
+				<?php endforeach ?>
 			</div>
 		</div>
 	</div>
@@ -46,7 +46,7 @@
 			<div id="regionButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($regionList as $item): ?>
 				<button type="button" class="btn " onclick="$('#inputRegion').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
-				<? endforeach ?>
+				<?php endforeach ?>
 			</div>
 		</div>
 	</div>
@@ -60,8 +60,3 @@
 	<input type="hidden" name="breed" id="inputBreed"/>
 	<input type="hidden" name="region" id="inputRegion"/>
 </form>
-<script>
-	$(function(){
-
-	});
-</script>

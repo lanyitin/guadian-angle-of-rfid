@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Dog extends CI_Controller {
+class Staff extends CI_Controller {
 
 	public function register()
 	{
@@ -8,17 +8,13 @@ class Dog extends CI_Controller {
 		$this->load->helper("html");
 
 		if (!$this->validateRegisterForm()) {
-			$breedQuery = $this->db->get("DogBreed");
-			$breedResult = $breedQuery->result();
-
-			$regionQuery = $this->db->get("Region");
-			$regionResult = $regionQuery->result();
+			$privilegeQuery = $this->db->get("Privilege");
+			$privilegeResult = $privilegeQuery->result();
 
 			$this->load->view("Home", array(
 				"name" => $this->session->userdata("name"),
-				"content" => $this->load->view("DogRegister", array(
-					"dogBreedList" => $breedResult,
-					"regionList" => $regionResult,
+				"content" => $this->load->view("StaffRegister", array(
+					"PrivilegeList" => $privilegeResult,
 				), true),
 				"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
 			));
@@ -30,12 +26,12 @@ class Dog extends CI_Controller {
 		redirect("dog/info");
 	}
 
-	public function modify($uhf) 
+	public function modify($id) 
 	{
 		$this->load->model("DogModel", "Dog", true);
 		if (!$this->validateModifyForm()) {
 			$this->load->library('session');
-			$query = $this->db->get_where("Dog", array("uhf" => $uhf));
+			$query = $this->db->get_where("Dog", array("id" => $id));
 			if ($query->num_rows()) {
 				$this->Dog->init($query->row());
 				$breedQuery = $this->db->get("DogBreed");
@@ -60,10 +56,10 @@ class Dog extends CI_Controller {
 		$this->Dog->save();
 		redirect("dog/info");
 	}
-	public function info($uhf = 0)
+	public function info($id = 0)
 	{
 		$this->load->library('session');
-		if ($uhf == 0) {
+		if ($id == 0) {
 			$this->load->model("DogModel", "Dog", true);
 			$content = "";
 			$query = $this->db->get("Dog");
@@ -81,11 +77,11 @@ class Dog extends CI_Controller {
 			));
 
 		} else {
-			$query = $this->db->get_where("Dog", array("uhf" => $uhf));
+			$query = $this->db->get_where("Dog", array("id" => $id));
 			if ($query->num_rows() == 0) {
 				$this->load->view("Home", array(
 					"name" => $this->session->userdata("name"),
-					"content" => "Can't find dog associated with UHF:$uhf",
+					"content" => "Can't find dog associated with id:$id",
 					"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
 				));
 			} else {
@@ -95,33 +91,29 @@ class Dog extends CI_Controller {
 		}
 	}
 
-	public function delete($uhf)
+	public function delete($id)
 	{
-		$query = $this->db->where(array("uhf" => $uhf));
-		$query = $this->db->delete("Dog");
+		$query = $this->db->where(array("id" => $id));
+		$query = $this->db->delete("Staff");
 		redirect("dog/info");
 	}
 	private function validateRegisterForm()
 	{
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('gender', 'gender', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('breed', 'breed', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('region', 'region', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('birthday', 'birthday', 'trim|required');
-		$this->form_validation->set_rules('region', 'region', 'trim|required');
+		$this->form_validation->set_rules('phone', 'phone', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('hfcard', 'hfcard', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('privilege', 'privilege', 'trim|required|xss_clean');
 		return $this->form_validation->run();
 	}
 	private function validateModifyForm()
 	{
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('uhf', 'uhf', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('id', 'id', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('gender', 'gender', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('breed', 'breed', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('region', 'region', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('birthday', 'birthday', 'trim|required');
-		$this->form_validation->set_rules('region', 'region', 'trim|required');
+		$this->form_validation->set_rules('phone', 'phone', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('hfcard', 'hfcard', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('privilege', 'privilege', 'trim|required|xss_clean');
 		return $this->form_validation->run();
 	}
 }

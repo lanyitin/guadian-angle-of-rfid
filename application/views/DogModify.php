@@ -4,7 +4,7 @@
 	<div class="control-group">
 		<label class="control-label" for="inputName">Name</label>
 		<div class="controls">
-		<input type="text" class="input" id= "inputName" placeholder="Dog name" name="name" value="<?php echo $dog->name;?>"/>
+		<input type="text" class="input" id="inputName" placeholder="Dog name" name="name" value="<?php echo $dog->name;?>"/>
 		</div>
 	</div>
 	<div class="control-group">
