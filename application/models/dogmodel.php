@@ -57,7 +57,7 @@ class DogModel extends CI_Model {
 			}
 			$this->uhf = ($this->gender . $this->region . $this->breed . $today . $num);
 			$this->db->insert("Dog", array(
-				"id" => $this->id,
+				"uhf" => $this->uhf,
 				"name" => $this->name,
 				"birthday" => $this->birthday,
 				"gender" => $this->gender,
