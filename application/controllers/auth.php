@@ -34,16 +34,10 @@ class Auth extends CI_Controller {
 			return;
 		}
 		$authRow = $authQuery->row();
-		$staffQuery = $this->db->get_where("Staff", array("id" => $authRow->staffid));
-		if ($staffQuery->num_rows() == 0) {
-			$this->load->view("Home", array(
-				"content" => $this->load->view('AuthLogin', array("error_msg" => "there is no staff associated to this username/password"), true),
-				"url" => "auth/login"
-			));
-			return;
-		}
-		$staffRow = $staffQuery->row();
-		$this->session->set_userdata($staffRow);
+		$this->load->model("StaffModel", "staff", true);
+		$this->staff->init($authRow->staffid);
+		//$this->session->set_userdata("id", $this->staff->id);
+		$this->session->set_userdata($this->staff->getData());
 		redirect("/home/");
 	}
 

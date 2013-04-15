@@ -28,9 +28,9 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="container">
 		<div class="container">
+		<?php print_r($this->session->all_userdata()); ?>
 			<?php if (isset($content))echo $content; ?>
 		</div>
 		<hr/>
