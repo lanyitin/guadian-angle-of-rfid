@@ -13,6 +13,7 @@ class Home extends CI_Controller {
 
 		$this->load->view('Home', array(
 			"name" => $this->session->userdata("name"),
+			"url" => "home"
 		));
 	}
 }
