@@ -4,7 +4,7 @@
 	<div class="control-group">
 		<label class="control-label" for="inputName">Picture</label>
 		<div class="controls">
-			<input type="file" class="input" id= "inputPicture" name="picture"/>
+			<button type="button" onclick="window.open(CKEDITOR.config.filebrowserImageBrowseUrl, null, 'status=0, titlebar=0, toolbar=0')">選擇圖片</button>
 		</div>
 	</div>
 	<div class="control-group">
