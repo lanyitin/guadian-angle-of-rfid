@@ -11,7 +11,7 @@
 				<div class="container-fluid">
 					<a class="brand" href="#">RFID Guide Dog Management System</a>
 					<ul class="nav">
-					<li class="<?php if (strpos($url, "home")) echo "active"; ?>"><a href="#">Home</a></li>
+					<li class="<?php if (strpos($url, "home") !== false) echo "active"; ?>"><a href="#">Home</a></li>
 						<?php include_once(APPPATH . "views/menubar.php");?>
 					</ul>
 					<?php if (isset($name)): ?>

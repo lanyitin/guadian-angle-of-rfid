@@ -13,7 +13,8 @@ class Auth extends CI_Controller {
 
 		if (!$this->validateLoginForm()) {
 			$this->load->view("Home", array(
-				"content" => $this->load->view('AuthLogin', null, true)
+				"content" => $this->load->view('AuthLogin', null, true),
+				"url" => "auth/login"
 			));
 			return;
 		}
@@ -28,6 +29,7 @@ class Auth extends CI_Controller {
 		if ($authQuery->num_rows() == 0) {
 			$this->load->view("Home", array(
 				"content" => $this->load->view('AuthLogin', null, true)
+				"url" => "auth/login"
 			));
 			return;
 		}
@@ -36,6 +38,7 @@ class Auth extends CI_Controller {
 		if ($staffQuery->num_rows() == 0) {
 			$this->load->view("Home", array(
 				"content" => $this->load->view('AuthLogin', array("error_msg" => "there is no staff associated to this username/password"), true)
+				"url" => "auth/login"
 			));
 			return;
 		}
