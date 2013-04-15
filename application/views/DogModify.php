@@ -29,7 +29,7 @@
 		<div class="controls">
 			<div id="breedButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($dogBreedList as $item): ?>
-				<button type="button" class="btn " data-value="<?php echo $item->id; ?>" onclick="$('#inputBreed').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
+				<button type="button" class="btn" data-value="<?php echo $item->id; ?>" onclick="$('#inputBreed').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
 				<? endforeach ?>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 		<div class="controls">
 			<div id="regionButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($regionList as $item): ?>
-				<button type="button" class="btn " data-value="<?php echo $item->id; ?>" onclick="$('#inputRegion').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
+				<button type="button" class="btn" data-value="<?php echo $item->id; ?>" onclick="$('#inputRegion').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
 				<? endforeach ?>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 	<!-- Region --> 
 	<div class="control-group">
 		<div class="controls">
-			<button class="btn btn-large " type="submit">Modify</button>
+			<button class="btn btn-large" type="submit">Modify</button>
 		</div>
 	</div>
 	<input type="hidden" name="id" id="inputId" value="<?php echo $dog->getId();?>"/>

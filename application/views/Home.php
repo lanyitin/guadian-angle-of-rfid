@@ -12,6 +12,7 @@
 					<a class="brand" href="#">RFID Guide Dog Management System</a>
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
+						<?php include_once(APPPATH . "views/menubar.php");?>
 					</ul>
 					<?php if (isset($name)): ?>
 					<ul class="nav pull-right">
@@ -30,13 +31,6 @@
 
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span3">
-				<div class="well sidebar-nav">
-					<ul class="nav nav-list">
-						<?php include_once(APPPATH . "views/sidebar.php");?>
-					</ul>
-				</div><!--/.well -->
-			</div><!--/span-->
 			<div class="span9">
 				<?php if (isset($content))echo $content; ?>
 			</div><!--/span-->
