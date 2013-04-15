@@ -1,23 +1,23 @@
 <h1 style="color:red"><?php echo validation_errors();?></h1>
-<form class="form form-horizontal" action="<?php echo site_url('dog/register'); ?>" method="POST">
+<form class="form form-horizontal" action="<?php echo site_url('dog/modify/' . $dog->getUhf()); ?>" method="POST">
 	<h2 class="form-signin-heading">Please Key In Dog's Information</h2>
 	<div class="control-group">
 		<label class="control-label" for="inputName">Picture</label>
 		<div class="controls">
 			<button type="button" onclick="window.open(CKEDITOR.config.filebrowserImageBrowseUrl, null, 'status=0, titlebar=0, toolbar=0')">Choose a picture</button>
-			<img type="hidden" id="filepath" name="image"/>
+			<img class="CK_image" src="<?php echo $dog->image;?>"/>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label" for="inputName">Name</label>
 		<div class="controls">
-		<input type="text" class="input" id="inputName" placeholder="Dog name" name="name" value="<?php echo $dog->name;?>"/>
+			<input type="text" class="input" id="inputName" placeholder="Dog name" name="name" value="<?php echo $dog->name;?>"/>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label" for="inputBirthday">Birthday</label>
 		<div class="controls">
-		<input type="text" id="inputBirthday" class="input datepicker" placeholder="Birthday" name="birthday" value="<?php echo $dog->birthday;?>"/>
+			<input type="text" id="inputBirthday" class="input datepicker" placeholder="Birthday" name="birthday" value="<?php echo $dog->birthday;?>"/>
 		</div>
 	</div>
 
@@ -36,8 +36,8 @@
 		<div class="controls">
 			<div id="breedButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($dogBreedList as $item): ?>
-				<button type="button" class="btn" data-value="<?php echo $item->id; ?>" onclick="$('#inputBreed').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
-				<? endforeach ?>
+				<button type="button" class="btn" data-value="<?php echo $item->id; ?>" onclick="$('#inputBreed').val('<?php echo $item->id; ?>');"><?php echo $item->title; ?></button>
+				<?php endforeach ?>
 			</div>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 			<div id="regionButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($regionList as $item): ?>
 				<button type="button" class="btn" data-value="<?php echo $item->id; ?>" onclick="$('#inputRegion').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
-				<? endforeach ?>
+				<?php endforeach ?>
 			</div>
 		</div>
 	</div>
@@ -61,6 +61,8 @@
 	<input type="hidden" name="gender" id="inputGender"/>
 	<input type="hidden" name="breed" id="inputBreed"/>
 	<input type="hidden" name="region" id="inputRegion"/>
+	<input type="hidden" name="uhf" id="inputUhf" value="<?php echo $dog->getUhf();?>"/>
+	<input name="image" class="CK_image" type="hidden" value="<?php echo $dog->image;?>"/>
 </form>
 <script>
 	$(function(){

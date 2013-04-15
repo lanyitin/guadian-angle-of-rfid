@@ -40,6 +40,7 @@ class DogModel extends CI_Model {
 			$this->birthday = $params->birthday;
 			$this->gender = $params->gender;
 			$this->breed = $params->breed;
+			$this->region = $params->region;
 			$this->image = $params->image;
 		}
 	}

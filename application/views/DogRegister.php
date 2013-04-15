@@ -5,19 +5,19 @@
 		<label class="control-label" for="inputName">Picture</label>
 		<div class="controls">
 			<button type="button" onclick="window.open(CKEDITOR.config.filebrowserImageBrowseUrl, null, 'status=0, titlebar=0, toolbar=0')">Choose a picture</button>
-			<img type="hidden" id="filepath" name="image"/>
+			<img class="CK_image"/>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label" for="inputName">Name</label>
 		<div class="controls">
-			<input type="text" class="input" id= "inputName" placeholder="Dog name" name="name"/>
+			<input type="text" class="input" id="inputName" placeholder="Dog name" name="name" value=""/>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class="control-label" for="inputBirthday">Birthday</label>
 		<div class="controls">
-			<input type="text" id="inputBirthday" class="input datepicker" placeholder="Birthday" name="birthday"/>
+			<input type="text" id="inputBirthday" class="input datepicker" placeholder="Birthday" name="birthday" value=""/>
 		</div>
 	</div>
 
@@ -25,8 +25,8 @@
 		<label class="control-label">Gender</label>
 		<div class="controls">
 			<div class="btn-group" data-toggle="buttons-radio">
-				<button type="button" class="btn " onclick="$('#inputGender').val('MD')">Male</button>
-				<button type="button" class="btn " onclick="$('#inputGender').val('FD')">Female</button>
+				<button type="button" class="btn" onclick="$('#inputGender').val('MD')">Male</button>
+				<button type="button" class="btn" onclick="$('#inputGender').val('FD')">Female</button>
 			</div>
 		</div>
 	</div>
@@ -36,7 +36,7 @@
 		<div class="controls">
 			<div id="breedButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($dogBreedList as $item): ?>
-				<button type="button" class="btn " onclick="$('#inputBreed').val('<?php echo $item->id; ?>');"><?php echo $item->title; ?></button>
+				<button type="button" class="btn" onclick="$('#inputBreed').val('<?php echo $item->id; ?>');"><?php echo $item->title; ?></button>
 				<?php endforeach ?>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 		<div class="controls">
 			<div id="regionButtons" class="btn-group" data-toggle="buttons-radio">
 				<?php foreach($regionList as $item): ?>
-				<button type="button" class="btn " onclick="$('#inputRegion').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
+				<button type="button" class="btn" onclick="$('#inputRegion').val('<?php echo $item->id; ?>')"><?php echo $item->title; ?></button>
 				<?php endforeach ?>
 			</div>
 		</div>
@@ -54,10 +54,11 @@
 	<!-- Region --> 
 	<div class="control-group">
 		<div class="controls">
-			<button class="btn btn-large " type="submit">Register</button>
+			<button class="btn btn-large" type="submit">Register</button>
 		</div>
 	</div>
 	<input type="hidden" name="gender" id="inputGender"/>
 	<input type="hidden" name="breed" id="inputBreed"/>
 	<input type="hidden" name="region" id="inputRegion"/>
+	<input type="hidden" class="CK_image" name="image" id="inputImage"/>
 </form>

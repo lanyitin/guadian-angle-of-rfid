@@ -111,9 +111,11 @@ function OpenFile( fileUrl )
 	
 	funcNum = GetUrlParam('CKEditorFuncNum') ;	//fixed the issue: images are not displayed in preview window when filename contain spaces due encodeURI encoding already encoded fileUrl
 	window.top.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl);
-	if ( (theDom = window.top.opener.document.getElementById("filepath")) != null) {
-		window.top.opener.console.log(fileUrl);
-		theDom.setAttribute("src", fileUrl);
+	if ( ( theDom = window.top.opener.document.getElementsByClassName("CK_image") ) != null ) {
+		for (i = 0; i < theDom.length; i++) {
+			theDom[i].setAttribute("src", fileUrl);
+			theDom[i].setAttribute("value", fileUrl);
+		}
 	} else {
 		alert("filepath not exists");
 	}

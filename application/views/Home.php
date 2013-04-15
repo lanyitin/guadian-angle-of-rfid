@@ -11,7 +11,7 @@
 				<div class="container-fluid">
 					<a class="brand" href="#">RFID Guide Dog Management System</a>
 					<ul class="nav">
-					<li class="<?php if (strpos($url, "home") !== false) echo "active"; ?>"><a href="<?php echo site_url("home"); ?>">Home</a></li>
+						<li class="<?php if (strpos($url, "home") !== false) echo "active"; ?>"><a href="<?php echo site_url("home"); ?>">Home</a></li>
 						<?php include_once(APPPATH . "views/menubar.php");?>
 					</ul>
 					<?php if (isset($name)): ?>
@@ -29,19 +29,12 @@
 		</div>
 	</div>
 
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span9">
-				<?php if (isset($content))echo $content; ?>
-			</div><!--/span-->
-		</div><!--/row-->
-
-		<hr>
-
-		<footer>
-		<p>&copy; Company 2013</p>
-		</footer>
-
-	</div><!--/.fluid-container-->
+	<div class="container">
+		<div class="container">
+			<?php if (isset($content))echo $content; ?>
+		</div>
+		<hr/>
+		<footer> </footer>
+	</div>
 </body>
 </html>
