@@ -34,7 +34,7 @@ $Config['Enabled'] = true ;
 if ($_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "localhost") {
 	$Config['UserFilesPath'] = "\\rfid\\files\\" ;
 } else {
-	$Config['UserFilesPath'] = "\\epcrfid\\files\\" ;
+	$Config['UserFilesPath'] = "\\epcrfid\\RFID\\files\\" ;
 }
 
 // Fill the following value it you prefer to specify the absolute path for the
@@ -44,7 +44,7 @@ if ($_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "localhost"
 if ($_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "localhost") {
 	$Config['UserFilesAbsolutePath'] = "D:\\Apache\\htdocs\\rfid\\files\\" ;
 } else {
-	$Config['UserFilesAbsolutePath'] = "C:\\AppServ\\www\\epcrfid\\files\\" ;
+	$Config['UserFilesAbsolutePath'] = "C:\\AppServ\\www\\epcrfid\\RFID\\files\\" ;
 }
 
 // Due to security issues with Apache modules, it is recommended to leave the
