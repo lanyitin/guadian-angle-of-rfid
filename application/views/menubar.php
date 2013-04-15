@@ -1,7 +1,7 @@
 <?php if($this->session->userdata("privilege") & (1+2+4+8)): ?>
 <ul class="nav pull-right">
 	<li class="dropdown">
-	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Dog Manipulation</a>
+	<a class="dropdown-toggle <?php if (strpos($url, "dog")) echo "active";?>" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Dog Manipulation</a>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 	<?php if($this->session->userdata("privilege") & (1)): ?>
 		<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url('dog/register');?>">Dog Register</a></li>	
@@ -17,7 +17,7 @@
 <?php if($this->session->userdata("privilege") & (16+32+64+128)): ?>
 <ul class="nav pull-right">
 	<li class="dropdown">
-	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Staff Manipulation</a>
+	<a class="dropdown-toggle <?php if (strpos($url, "staff")) echo "active";?>" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Staff Manipulation</a>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 	<?php if($this->session->userdata("privilege") & (16)): ?>
 		<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url('staff/register');?>">Staff Register</a></li>	
