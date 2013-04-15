@@ -28,6 +28,7 @@ class DogModel extends CI_Model {
 			$this->gender = $params["gender"];
 			$this->breed = $params["breed"];
 			$this->region = $params["region"];
+			$this->image = $params["image"];
 		} else if (is_object($params)){
 			if (isset($params->id)) {
 				$this->id = $params->id;
@@ -39,7 +40,7 @@ class DogModel extends CI_Model {
 			$this->birthday = $params->birthday;
 			$this->gender = $params->gender;
 			$this->breed = $params->breed;
-			$this->region = $params->region;
+			$this->image = $params->image;
 		}
 	}
 
@@ -63,7 +64,8 @@ class DogModel extends CI_Model {
 				"birthday" => $this->birthday,
 				"gender" => $this->gender,
 				"breed" => $this->breed,
-				"region" => $this->region
+				"region" => $this->region,
+				"image" => $this->image
 			));
 			$this->id = $this->db->insert_id();
 		} else {
@@ -75,7 +77,8 @@ class DogModel extends CI_Model {
 				"gender" => $this->gender,
 				"breed" => $this->breed,
 				"region" => $this->region,
-				"uhf" => $newuhf
+				"uhf" => $newuhf,
+				"image" => $this->image
 			));
 		}
 	}

@@ -2,6 +2,13 @@
 <form class="form form-horizontal" action="<?php echo site_url('dog/register'); ?>" method="POST">
 	<h2 class="form-signin-heading">Please Key In Dog's Information</h2>
 	<div class="control-group">
+		<label class="control-label" for="inputName">Picture</label>
+		<div class="controls">
+			<button type="button" onclick="window.open(CKEDITOR.config.filebrowserImageBrowseUrl, null, 'status=0, titlebar=0, toolbar=0')">Choose a picture</button>
+			<img type="hidden" id="filepath" name="image"/>
+		</div>
+	</div>
+	<div class="control-group">
 		<label class="control-label" for="inputName">Name</label>
 		<div class="controls">
 		<input type="text" class="input" id="inputName" placeholder="Dog name" name="name" value="<?php echo $dog->name;?>"/>
