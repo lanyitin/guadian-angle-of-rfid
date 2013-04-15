@@ -32,9 +32,9 @@ $Config['Enabled'] = true ;
 
 // Path to user files relative to the document root.
 if ($_SERVER['HTTP_HOST'] == "127.0.0.1" || $_SERVER['HTTP_HOST'] == "localhost") {
-	$Config['UserFilesPath'] = "\\rfid\\files\\" ;
+	$Config['UserFilesPath'] = "/rfid/files/" ;
 } else {
-	$Config['UserFilesPath'] = "\\epcrfid\\RFID\\files\\" ;
+	$Config['UserFilesPath'] = "/epcrfid/RFID/files/" ;
 }
 
 // Fill the following value it you prefer to specify the absolute path for the
