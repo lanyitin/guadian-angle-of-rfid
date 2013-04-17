@@ -76,7 +76,7 @@
 			   <td>Phone</td>
 			</tr>
 			<?php foreach ($staffs as $_staff): ?>
-			<tr onclick="$('#trainerlist tr').removeClass('success'); $(this).addClass('success'); $('#inputTrainer').val(<?php echo $_staff->id; ?>)">
+			<tr onclick="$('#trainerlist tr').removeClass('success'); $(this).addClass('success'); $('#inputTrainer').val('<?php echo $_staff->hfcard; ?>')">
 			   <td><?php echo $_staff->name ;?></td>
 			   <td><?php echo $_staff->phone ;?></td>
 			</tr>

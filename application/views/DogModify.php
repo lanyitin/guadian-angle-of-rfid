@@ -78,7 +78,7 @@
 			   <td>Phone</td>
 			</tr>
 			<?php foreach ($staffs as $_staff): ?>
-			<tr class="<?php if ($dog->trainer == $_staff->id) echo "success"; ?> onclick="$('#trainerlist tr').removeClass('success'); $(this).addClass('success'); $('#inputTrainer').val(<?php echo $_staff->id; ?>)">
+			<tr class="<?php if ($dog->trainer == $_staff->id) {echo "success"; } ?>" onclick="$('#trainerlist tr').removeClass('success'); $(this).addClass('success'); $('#inputTrainer').val('<?php echo $_staff->hfcard; ?>')">
 			   <td><?php echo $_staff->name ;?></td>
 			   <td><?php echo $_staff->phone ;?></td>
 			</tr>
