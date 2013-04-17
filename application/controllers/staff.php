@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+include("application/libraries/LAN_Controller.php");
 
-class Staff extends CI_Controller {
+class Staff extends LAN_Controller {
 
 	public function register()
 	{
@@ -8,53 +9,43 @@ class Staff extends CI_Controller {
 		$this->load->helper("html");
 
 		if (!$this->validateRegisterForm()) {
-			$privilegeQuery = $this->db->get("Privilege");
-			$privilegeResult = $privilegeQuery->result();
+			$roleQuery = $this->db->get("StaffRole");
+			$roleResult = $roleQuery->result();
 
 			$this->load->view("Home", array(
 				"name" => $this->session->userdata("name"),
 				"content" => $this->load->view("StaffRegister", array(
-					"PrivilegeList" => $privilegeResult,
+					"PrivilegeList" => $roleResult,
 				), true),
 				"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
 			));
 			return;
 		}
-		$this->load->model("DogModel", "newDog", true);
-		$this->newDog->init($this->input->post());
-		$this->newDog->save();
-		redirect("dog/info");
+		$this->load->model("StaffModel", "newStaff", true);
+		$this->newStaff->init($this->input->post());
+		$this->newStaff->save();
 	}
 
 	public function modify($id) 
 	{
-		$this->load->model("DogModel", "Dog", true);
-		if (!$this->validateModifyForm()) {
-			$this->load->library('session');
-			$query = $this->db->get_where("Dog", array("id" => $id));
-			if ($query->num_rows()) {
-				$this->Dog->init($query->row());
-				$breedQuery = $this->db->get("DogBreed");
-				$breedResult = $breedQuery->result();
+		$this->load->model("StaffModel", "EditStaff", true);
+		$this->EditStaff->init($id);
+		if (!$this->validateRegisterForm()) {
+			$roleQuery = $this->db->get("StaffRole");
+			$roleResult = $roleQuery->result();
 
-				$regionQuery = $this->db->get("Region");
-				$regionResult = $regionQuery->result();
-
-				$this->load->view("Home", array(
-					"name" => $this->session->userdata("name"),
-					"content" => $this->load->view("DogModify", array(
-						"dogBreedList" => $breedResult,
-						"regionList" => $regionResult,
-						"dog" => $this->Dog
-					), true),
-					"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
-				));
-			}
+			$this->load->view("Home", array(
+				"name" => $this->session->userdata("name"),
+				"content" => $this->load->view("StaffModify", array(
+					"PrivilegeList" => $roleResult,
+					"Staff" => $this->EditStaff
+				), true),
+				"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
+			));
 			return;
 		}
-		$this->Dog->init($this->input->post());
-		$this->Dog->save();
-		redirect("dog/info");
+		$this->EditStaff->init($this->input->post());
+		$this->EditStaff->save();
 	}
 	public function info($id = 0)
 	{
@@ -86,7 +77,6 @@ class Staff extends CI_Controller {
 				));
 			} else {
 				$row = $query->row();
-				print_r($row);
 			}
 		}
 	}
@@ -103,7 +93,7 @@ class Staff extends CI_Controller {
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('phone', 'phone', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('hfcard', 'hfcard', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('privilege', 'privilege', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('role', 'role[]', 'required|xss_clean');
 		return $this->form_validation->run();
 	}
 	private function validateModifyForm()
@@ -113,7 +103,7 @@ class Staff extends CI_Controller {
 		$this->form_validation->set_rules('name', 'name', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('phone', 'phone', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('hfcard', 'hfcard', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('privilege', 'privilege', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('role', 'role', 'required|xss_clean');
 		return $this->form_validation->run();
 	}
 }

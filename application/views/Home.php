@@ -17,7 +17,7 @@
 					<?php if (isset($name)): ?>
 					<ul class="nav pull-right">
 						<li class="dropdown">
-						<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Login as <?php echo $name;?></a>
+						<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Login as <?php echo $this->staff->name;?></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url('auth/logout');?>">Logout</a></li>	
 						</ul>
@@ -30,8 +30,7 @@
 	</div>
 	<div class="container">
 		<div class="container">
-		<?php print_r($this->session->all_userdata()); ?>
-			<?php if (isset($content))echo $content; ?>
+			<?php if (isset($content)) echo $content; ?>
 		</div>
 		<hr/>
 		<footer> </footer>

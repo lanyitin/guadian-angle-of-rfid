@@ -1,12 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+include("application/libraries/LAN_Controller.php");
 
-class Auth extends CI_Controller {
+class Auth extends LAN_Controller {
 
 	public function login()
 	{
-		$this->load->library('session');
 		$this->load->helper('url');
-
 		if ($this->session->userdata("id") !== false) { // the user has login
 			redirect("/home/");
 		}
@@ -24,8 +23,6 @@ class Auth extends CI_Controller {
 			"password" => $this->input->post("password")
 		));
 
-
-
 		if ($authQuery->num_rows() == 0) {
 			$this->load->view("Home", array(
 				"content" => $this->load->view('AuthLogin', null, true),
@@ -34,10 +31,8 @@ class Auth extends CI_Controller {
 			return;
 		}
 		$authRow = $authQuery->row();
-		$this->load->model("StaffModel", "staff", true);
 		$this->staff->init($authRow->staffid);
-		//$this->session->set_userdata("id", $this->staff->id);
-		$this->session->set_userdata($this->staff->getData());
+		$this->session->set_userdata("id", $this->staff->id);
 		redirect("/home/");
 	}
 

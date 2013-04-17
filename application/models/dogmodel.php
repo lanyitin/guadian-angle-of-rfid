@@ -8,6 +8,7 @@ class DogModel extends CI_Model {
 	public $breed;
 	public $region;
 	public $image;
+	public $trainer;
 
     function __construct()
     {
@@ -42,7 +43,14 @@ class DogModel extends CI_Model {
 			$this->breed = $params->breed;
 			$this->region = $params->region;
 			$this->image = $params->image;
-		}
+		 }
+		 $trainerQuery = $this->db->get_where("StaffDogAssocation", array("dogid" => $this->id));
+		 $trainerRow = $trainerQuery->row(0, 'object');
+		 if (count($trainerRow) > 0) {
+			$this->trainer = $trainerRow->staffid;
+		 } else {
+			$this->trainer = null;
+		 }
 	}
 
 	public function save()
@@ -81,7 +89,13 @@ class DogModel extends CI_Model {
 				"uhf" => $newuhf,
 				"image" => $this->image
 			));
-		}
+		 }
+		 $this->db->where("dogid", $this->id);
+		 $this->db->delete("StaffDogAssocation");
+		 $this->db->insert("StaffDogAssocation", array(
+			"staffid" => $this->trainer,
+			"dogid" => $this->id
+		 ));
 	}
 
 	public function getId()
