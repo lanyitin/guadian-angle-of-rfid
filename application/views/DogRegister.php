@@ -41,7 +41,7 @@
 			   <div class="controls">
 			   <select id="inputBreed" name="breed">
 					 <?php foreach($dogBreedList as $item): ?>
-			   <option value="<?php echo item->id;?>"><?php echo $item->title; ?></option>
+			   <option value="<?php echo $item->id;?>"><?php echo $item->title; ?></option>
 					 <?php endforeach ?>
 				</select>
 			   </div>
