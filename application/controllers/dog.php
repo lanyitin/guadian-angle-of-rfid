@@ -119,6 +119,7 @@ class Dog extends LAN_Controller {
 		$this->form_validation->set_rules('region', 'region', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('birthday', 'birthday', 'trim|required');
 		$this->form_validation->set_rules('region', 'region', 'trim|required');
+		$this->form_validation->set_rules('trainer', 'trainer', 'trim|required');
 		return $this->form_validation->run();
 	}
 	private function validateModifyForm()
@@ -131,6 +132,7 @@ class Dog extends LAN_Controller {
 		$this->form_validation->set_rules('region', 'region', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('birthday', 'birthday', 'trim|required');
 		$this->form_validation->set_rules('region', 'region', 'trim|required');
+		$this->form_validation->set_rules('trainer', 'trainer', 'trim|required');
 		return $this->form_validation->run();
 	}
 }
