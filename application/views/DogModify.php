@@ -90,6 +90,6 @@
    $(function(){
 		 $("[data-value='<?php echo $dog->gender;?>']").click();
 		 $("[data-value='<?php echo $dog->region;?>']").click();
-		 $("option[value='<?php echo $dog->breed;?>']").select();
+		 $("#inputBreed").val("<?php echo $dog->breed;?>");
    });
 </script>
