@@ -39,11 +39,11 @@
 			<div class="control-group">
 			   <label class="control-label">Breed</label>
 			   <div class="controls">
-				  <div id="breedButtons" class="btn-group" data-toggle="buttons-radio">
+			   <select id="inputBreed" name="breed">
 					 <?php foreach($dogBreedList as $item): ?>
-					 <button type="button" class="btn" onclick="$('#inputBreed').val('<?php echo $item->id; ?>');"><?php echo $item->title; ?></button>
+			   <option value="<?php echo item->id;?>"><?php echo $item->title; ?></option>
 					 <?php endforeach ?>
-				  </div>
+				</select>
 			   </div>
 			</div>
 			<div class="control-group">
@@ -63,7 +63,6 @@
 			   </div>
 			</div>
 			<input type="hidden" name="gender" id="inputGender"/>
-			<input type="hidden" name="breed" id="inputBreed"/>
 			<input type="hidden" name="region" id="inputRegion"/>
 			<input type="hidden" name="trainer" id="inputTrainer"/>
 			<input type="hidden" class="CK_image" name="image" id="inputImage"/>

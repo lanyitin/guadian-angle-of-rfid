@@ -39,11 +39,11 @@
 			<div class="control-group">
 			   <label class="control-label">Breed</label>
 			   <div class="controls">
-				  <div id="breedButtons" class="btn-group" data-toggle="buttons-radio">
+			   <select id="inputBreed" name="breed">
 					 <?php foreach($dogBreedList as $item): ?>
-					 <button type="button" class="btn" data-value="<?php echo $item->id; ?>" onclick="$('#inputBreed').val('<?php echo $item->id; ?>');"><?php echo $item->title; ?></button>
+			   <option value="<?php echo item->id;?>"><?php echo $item->title; ?></option>
 					 <?php endforeach ?>
-				  </div>
+				</select>
 			   </div>
 			</div>
 			<div class="control-group">
@@ -65,7 +65,6 @@
 			<input type="hidden" name="id" id="inputId" value="<?php echo $dog->getId();?>"/>
 			<input type="hidden" name="uhf" id="inputUhf" value="<?php echo $dog->getUhf();?>"/>
 			<input type="hidden" name="gender" id="inputGender"/>
-			<input type="hidden" name="breed" id="inputBreed"/>
 			<input type="hidden" name="region" id="inputRegion"/>
 			<input type="hidden" name="trainer" id="inputTrainer"/>
 			<input type="hidden" class="CK_image" name="image" id="inputImage" value="<?php echo $dog->image;?>"/>
@@ -91,6 +90,6 @@
    $(function(){
 		 $("[data-value='<?php echo $dog->gender;?>']").click();
 		 $("[data-value='<?php echo $dog->region;?>']").click();
-		 $("[data-value='<?php echo $dog->breed;?>']").click();
+		 $("option[value='<?php echo $dog->breed;?>']").select();
    });
 </script>
