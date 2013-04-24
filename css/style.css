@@ -14,5 +14,12 @@ body {
 		padding-right: 5px;
 	}
 }
-.DogInfo {
+.TrainerInfo {
+   border-radius:5px;
+   border: 1px black solid;
+   margin:2px;
+   padding:2px;
+}
+.TrainerInfo:hover {
+   background-color:#eee;
 }
