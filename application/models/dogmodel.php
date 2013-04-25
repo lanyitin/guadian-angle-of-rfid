@@ -43,6 +43,7 @@ class DogModel extends CI_Model {
 			$this->gender = $params->gender;
 			$this->breed = $params->breed;
 			$this->region = $params->region;
+			$this->image = $params->image;
 			$trainerQuery = $this->db->get_where("StaffDogAssocation", array("dogid" => $this->getUhf()));
 			$trainerRow = $trainerQuery->row();
 			if (is_object($trainerRow) && isset($trainerRow->staffid)) {
