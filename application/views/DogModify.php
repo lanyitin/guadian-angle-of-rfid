@@ -67,7 +67,7 @@
                     <div class="controls">
                         <select id="inputTrainer" name="trainer">
                             <?php foreach ($staffs as $_staff): ?>
-                                <option value="<?php echo $_staff->id; ?>">
+                                <option value="<?php echo $_staff->hfcard; ?>">
                                     <?php echo $_staff->name ;?></td>
                                         <?php echo $_staff->phone ;?></td>
                                 </option>
