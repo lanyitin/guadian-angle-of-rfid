@@ -1,7 +1,7 @@
 <?php
 class DogModel extends CI_Model {
 	private $id = null;
-	private $Uhf = null;
+	private $uhf = null;
 	public $name;
 	public $birthday;
 	public $gender;
