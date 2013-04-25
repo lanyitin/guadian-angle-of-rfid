@@ -82,7 +82,7 @@ class Dog extends LAN_Controller {
 			$i = 0;
 			foreach($query->result() as $dogdata) {
 				$modelname = "Dog" . $i;
-			   $this->load->model("DogModel", $modelname . $i, true);
+			   $this->load->model("DogModel", $modelname, true);
 			   $this->$modelname->init($dogdata);
 			   $dogs[] = $this->$modelname;
 			}
