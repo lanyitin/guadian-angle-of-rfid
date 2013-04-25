@@ -93,7 +93,7 @@ class DogModel extends CI_Model {
 				"image" => $this->image
 			));
 		}
-		$this->db->where("dogid", $this->id);
+		$this->db->where("dogid", $this->getUhf());
 		$this->db->delete("StaffDogAssocation");
 		$this->db->insert("StaffDogAssocation", array(
 			"staffid" => $this->trainer,
