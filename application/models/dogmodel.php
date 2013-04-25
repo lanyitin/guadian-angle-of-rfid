@@ -44,6 +44,7 @@ class DogModel extends CI_Model {
 			$this->breed = $params->breed;
 			$this->region = $params->region;
 			$this->image = $params->image;
+
 			$trainerQuery = $this->db->get_where("StaffDogAssocation", array("dogid" => $this->getUhf()));
 			$trainerRow = $trainerQuery->row();
 			if (is_object($trainerRow) && isset($trainerRow->staffid)) {
@@ -59,7 +60,7 @@ class DogModel extends CI_Model {
 		$this->db->trans_begin();
 		if ($this->id === null) {
 			$today = date("ymd");
-			$sql = sprintf("select max(substr(id, 22, 3)) as num from Dog where substr(id, 16, 6)='%s'", $today);
+			$sql = sprintf("select max(substr(uhf, 22, 3)) as num from Dog where substr(uhf, 16, 6)='%s'", $today);
 			$query = $this->db->query($sql);
 			$num = "";
 			if ($query->num_rows() == 0) {
