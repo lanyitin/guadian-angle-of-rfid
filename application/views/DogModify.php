@@ -63,8 +63,8 @@
                     </div>
                 </div>
                 <div class="control-group">
+					<label class="control-label">Trainer</label>
                     <div class="controls">
-                        <label class="control-label">Trainer</label>
                         <select id="inputTrainer" name="trainer">
                             <?php foreach ($staffs as $_staff): ?>
                                 <option value="<?php echo $_staff->id; ?>">
@@ -97,7 +97,7 @@
     $(function(){
     	$("[data-value='<?php echo $dog->gender;?>']").click();
 		$("[data-value='<?php echo $dog->region;?>']").click();
-		$("#inputTrainer").val("<?php echo $dog->id; ?>");
+		$("#inputTrainer").val("<?php echo $dog->trainer; ?>");
     	$("#inputBreed").val("<?php echo $dog->breed;?>");
     });
 </script>
