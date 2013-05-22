@@ -13,7 +13,6 @@
                     <label class="control-label" for="inputName">Picture</label>
                     <div class="controls">
                         <button type="button" onclick="window.open(CKEDITOR.config.filebrowserImageBrowseUrl, null, 'status=0, titlebar=0, toolbar=0')">Choose a picture</button>
-                        <img class="CK_image" src="<?php echo $dog->image;?>"/>
                     </div>
                 </div>
                 <div class="control-group">
@@ -76,6 +75,12 @@
                 </div>
                 <!-- Region -->
                 <div class="control-group">
+                    <label class="control-label" for="inputName">Register Date</label>
+					<div class="controls">
+						<p><?php echo date("Y-m-d"); ?></p>
+                    </div>
+                </div>
+                <div class="control-group">
                     <div class="controls">
                         <button class="btn btn-large" type="submit">Modify</button>
                     </div>
@@ -90,6 +95,9 @@
                 />
             </fieldset>
         </div>
+	<div class="span4">
+		<img class="CK_image" src="<?php echo $dog->image;?>"/>
+	</div>
     </form>
 </div>
 <script>
