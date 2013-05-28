@@ -17,7 +17,7 @@ class LAN_Controller extends CI_Controller{
 			$this->staff->init($this->session->userdata("id"));
 			return call_user_func_array(array($this, $method), $params);
 		} else { // not login yet
-			if ($method != "login") {
+			if (!in_array($method, array("login", "getByCondiction"))) {
 				redirect("auth/login");
 			} else {
 				return call_user_func_array(array($this, $method), $params);

@@ -30,7 +30,51 @@
 	</div>
 	<div class="container">
 		<div class="container">
-			<?php if (isset($content)) echo $content; ?>
+			<?php if (isset($content)) {
+				echo $content;
+			} else { ?>
+				<h1>Statistics</h1>
+				<div class="row">
+					<table class="table">
+						<tr>
+							<th width="50%">Gender</th>
+							<th width="50%">Count</th>
+						</tr>
+						<tbody>
+						<?php foreach($dog_gender_count as $gender): ?>
+						<tr>
+							<td><?php echo $gender->gender; ?></td>
+							<td><?php echo $gender->count; ?></td>
+						</tr>
+						<?php endforeach ?>
+						</tbody>
+					</table>
+					<table class="table">
+						<tr>
+							<th width="50%">Breed</th>
+							<th width="50%">Count</th>
+						</tr>
+						<?php foreach($dog_breed_count as $breed): ?>
+						<tr>
+							<td><?php echo $breed->breed; ?></td>
+							<td><?php echo $breed->count; ?></td>
+						</tr>
+						<?php endforeach ?>
+					</table>
+					<table class="table">
+						<tr>
+							<th width="50%">Trainer's name</th>
+							<th width="50%">Count</th>
+						</tr>
+						<?php foreach($trainer_dog_count as $count): ?>
+						<tr>
+							<td><?php echo $count->trainer; ?></td>
+							<td><?php echo $count->count; ?></td>
+						</tr>
+						<?php endforeach ?>
+					</table>
+				</div>
+			<?php } ?>
 		</div>
 		<hr/>
 		<footer> </footer>

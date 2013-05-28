@@ -51,10 +51,10 @@ class Dog extends LAN_Controller {
 				$regionQuery = $this->db->get("Region");
 				$regionResult = $regionQuery->result();
 
-			   $this->db->where("role &", "1");
-			   $this->db->or_where("role", "-2147483648");
-			   $staffQuery = $this->db->get("Staff");
-			   $staffResult = $staffQuery->result();
+				$this->db->where("role &", "1");
+				$this->db->or_where("role", "-2147483648");
+				$staffQuery = $this->db->get("Staff");
+				$staffResult = $staffQuery->result();
 
 				$this->load->view("Home", array(
 					"name" => $this->session->userdata("name"),
@@ -82,10 +82,10 @@ class Dog extends LAN_Controller {
 			$i = 0;
 			foreach($query->result() as $dogdata) {
 				$modelName = "Dog" . $i;
-			   $this->load->model("DogModel", $modelName, true);
-			   $this->$modelName->init($dogdata);
-			   $dogs[] = $this->$modelName;
-			   $i++;
+				$this->load->model("DogModel", $modelName, true);
+				$this->$modelName->init($dogdata);
+				$dogs[] = $this->$modelName;
+				$i++;
 			}
 			$this->load->view("Home", array(
 				"name" => $this->session->userdata("name"),
@@ -137,5 +137,30 @@ class Dog extends LAN_Controller {
 		$this->form_validation->set_rules('region', 'region', 'trim|required');
 		$this->form_validation->set_rules('trainer', 'trainer', 'trim|required');
 		return $this->form_validation->run();
+	}
+
+	public function getByCondiction($begin, $count) {
+		function notEmptyDefault($string) {
+			return $string !== false && $string !== "ALL";
+		}
+		if (notEmptyDefault($this->input->post("breed"))) {
+			$this->db->where("breed", $this->input->post("breed"));
+		}
+		if (notEmptyDefault($this->input->post("gender"))) {
+			$this->db->where("gender", $this->input->post("gender"));
+		}
+		$this->db->limit($count, $begin);
+		$query = $this->db->get("dog");
+		$data = array();
+		$i = 0;
+		foreach($query->result() as $dogdata) {
+			$modelName = "Dog" . $i;
+			$this->load->model("DogModel", $modelName, true);
+			$this->$modelName->init($dogdata);
+			$dogs[] = $this->$modelName;
+			$data[] = $this->load->view("DogInfo", array("dog" => $dogs[$i]), true);
+			$i++;
+		}
+		echo json_encode($data);
 	}
 }
