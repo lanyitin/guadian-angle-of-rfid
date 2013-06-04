@@ -15,6 +15,8 @@ class Dog extends LAN_Controller {
 			$regionQuery = $this->db->get("Region");
 			$regionResult = $regionQuery->result();
 
+			$genderQuery = $this->db->get("doggender");
+			$genderResult = $genderQuery->result();
 			$this->db->where("role &", "1");
 			$this->db->or_where("role", "-2147483648");
 			$staffQuery = $this->db->get("Staff");
@@ -24,7 +26,8 @@ class Dog extends LAN_Controller {
 				"name" => $this->session->userdata("name"),
 				"content" => $this->load->view("DogRegister", array(
 					"dogBreedList" => $breedResult,
-					"regionList" => $regionResult,
+					"dogRegionList" => $regionResult,
+					"dogGenderList" => $genderResult,
 					"staffs" => $staffResult,
 				), true),
 				"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
@@ -42,14 +45,18 @@ class Dog extends LAN_Controller {
 		$this->load->model("DogModel", "Dog", true);
 		if (!$this->validateModifyForm()) {
 			$this->load->library('session');
-			$query = $this->db->get_where("Dog", array("uhf" => $uhf));
-			if ($query->num_rows()) {
-				$this->Dog->init($query->row());
+			$this->db->where("uhf", $uhf);
+			$dogs = $this->getDogData();
+			if (count($dogs)) {
+				$this->Dog->init($dogs[0]);
 				$breedQuery = $this->db->get("DogBreed");
 				$breedResult = $breedQuery->result();
 
 				$regionQuery = $this->db->get("Region");
 				$regionResult = $regionQuery->result();
+
+				$genderQuery = $this->db->get("doggender");
+				$genderResult = $genderQuery->result();
 
 				$this->db->where("role &", "1");
 				$this->db->or_where("role", "-2147483648");
@@ -60,7 +67,8 @@ class Dog extends LAN_Controller {
 					"name" => $this->session->userdata("name"),
 					"content" => $this->load->view("DogModify", array(
 						"dogBreedList" => $breedResult,
-						"regionList" => $regionResult,
+						"dogRegionList" => $regionResult,
+						"dogGenderList" => $genderResult,
 						"staffs" => $staffResult,
 						"dog" => $this->Dog
 					), true),
@@ -73,20 +81,34 @@ class Dog extends LAN_Controller {
 		$this->Dog->save();
 		redirect("dog/info");
 	}
+
+	private function getDogData()
+	{
+		$query = $this->db->get("Dog");
+		$dogs = array();
+		$i = 0;
+		foreach($query->result() as $dogdata) {
+			$query = $this->db->get_where("StaffDogAssocation", array("dogid" => $dogdata->uhf));
+			//echo $this->db->last_query();
+			if ($query->num_rows()) {
+				$row = $query->row();
+				$dogdata->trainer = $row->staffid;
+			} else {
+				$dogdata->trainer = "";
+			}
+			$modelName = "Dog" . $i;
+			$this->load->model("DogModel", $modelName, true);
+			$this->$modelName->init($dogdata);
+			$dogs[] = $this->$modelName;
+			$i++;
+		}
+		return $dogs;
+	}
 	public function info($uhf = 0)
 	{
 		$this->load->library('session');
 		if ($uhf == 0) {
-			$query = $this->db->get("Dog");
-			$dogs = array();
-			$i = 0;
-			foreach($query->result() as $dogdata) {
-				$modelName = "Dog" . $i;
-				$this->load->model("DogModel", $modelName, true);
-				$this->$modelName->init($dogdata);
-				$dogs[] = $this->$modelName;
-				$i++;
-			}
+			$dogs = $this->getDogData();
 			$this->load->view("Home", array(
 				"name" => $this->session->userdata("name"),
 				"content" => $this->load->view("DogInfoList", array("dogs" => $dogs), true),
@@ -101,8 +123,6 @@ class Dog extends LAN_Controller {
 					"content" => "Can't find dog associated with UHF:$uhf",
 					"url" => ($this->uri->segment(1) . "/" . $this->uri->segment(2))
 				));
-			} else {
-				$row = $query->row();
 			}
 		}
 	}
@@ -141,7 +161,7 @@ class Dog extends LAN_Controller {
 
 	public function getByCondiction($begin, $count) {
 		function notEmptyDefault($string) {
-			return $string !== false && $string !== "ALL";
+			return $string !== false && $string !== "ALL" && count(trim($string)) > 0;
 		}
 		if (notEmptyDefault($this->input->post("breed"))) {
 			$this->db->where("breed", $this->input->post("breed"));
@@ -150,16 +170,16 @@ class Dog extends LAN_Controller {
 			$this->db->where("gender", $this->input->post("gender"));
 		}
 		$this->db->limit($count, $begin);
-		$query = $this->db->get("dog");
+		$dogs = $this->getDogData();
 		$data = array();
-		$i = 0;
-		foreach($query->result() as $dogdata) {
-			$modelName = "Dog" . $i;
-			$this->load->model("DogModel", $modelName, true);
-			$this->$modelName->init($dogdata);
-			$dogs[] = $this->$modelName;
+		for($i = 0; $i < count($dogs); $i++) {
+			if (notEmptyDefault($this->input->post("card"))) {
+				if (strpos($dogs[$i]->getUhf(), $this->input->post("card")) == false && strpos($dogs[$i]->trainer,$this->input->post("card")) == false) {
+					continue;
+				}
+			}
 			$data[] = $this->load->view("DogInfo", array("dog" => $dogs[$i]), true);
-			$i++;
+
 		}
 		echo json_encode($data);
 	}

@@ -11,10 +11,11 @@ class Auth extends LAN_Controller {
 		}
 
 		if (!$this->validateLoginForm()) {
-			$this->load->view("Home", array(
-				"content" => $this->load->view('AuthLogin', null, true),
-				"url" => "auth/login"
-			));
+			//$this->load->view("Home", array(
+			//	"content" => $this->load->view('AuthLogin', null, true),
+			//	"url" => "auth/login"
+			//));
+			$this->load->view("index");
 			return;
 		}
 
@@ -24,10 +25,11 @@ class Auth extends LAN_Controller {
 		));
 
 		if ($authQuery->num_rows() == 0) {
-			$this->load->view("Home", array(
-				"content" => $this->load->view('AuthLogin', null, true),
-				"url" => "auth/login"
-			));
+			//$this->load->view("Home", array(
+			//	"content" => $this->load->view('AuthLogin', null, true),
+			//	"url" => "auth/login"
+			//));
+			$this->load->view("index");
 			return;
 		}
 		$authRow = $authQuery->row();

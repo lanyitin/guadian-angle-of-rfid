@@ -1,2 +1,8 @@
 application/logs/log-*.php
 *.swp
+*.pptx
+*.ppt
+*.doc
+*.docx
+*.xml
+*.xmlx

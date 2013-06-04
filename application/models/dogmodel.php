@@ -44,23 +44,27 @@ class DogModel extends CI_Model {
 			$this->breed = $params->breed;
 			$this->region = $params->region;
 			$this->image = $params->image;
-
-			$trainerQuery = $this->db->get_where("StaffDogAssocation", array("dogid" => $this->getUhf()));
-			$trainerRow = $trainerQuery->row();
-			if (is_object($trainerRow) && isset($trainerRow->staffid)) {
-				$this->trainer = $trainerRow->staffid;
+			if (isset($params->trainer)) {
+				$this->trainer = $params->trainer;
 			} else {
-				$this->trainer = null;
+				print_r(debug_backtrace());
 			}
 		}
 	}
 
 	public function save()
 	{
+		// mysql substr start from 1
+		// 01 [1~2] fixed
+		// D0410DA [3~9] Region
+		// 085DE7 [10~15] breed
+		// 1306 [16~19] Year and Month
+		// 001 [20~22] serial number
+		// 01 [23~24] gender
 		$this->db->trans_begin();
 		if ($this->id === null) {
-			$today = date("ymd");
-			$sql = sprintf("select max(substr(uhf, 22, 3)) as num from Dog where substr(uhf, 16, 6)='%s'", $today);
+			$today = date("ym");
+			$sql = sprintf("select max(substr(uhf, 20, 3)) as num from Dog where substr(uhf, 16, 4)='%s'", $today);
 			$query = $this->db->query($sql);
 			$num = "";
 			if ($query->num_rows() == 0) {
@@ -69,7 +73,7 @@ class DogModel extends CI_Model {
 				$row = $query->row();
 				$num = sprintf("%03d", $row->num + 1);
 			}
-			$this->uhf = ($this->gender . $this->region . $this->breed . $today . $num);
+			$this->uhf = ("01" . $this->region . $this->breed . $today . $num . $this->gender);
 			$this->db->insert("Dog", array(
 				"uhf" => $this->uhf,
 				"name" => $this->name,
@@ -81,7 +85,7 @@ class DogModel extends CI_Model {
 			));
 			$this->id = $this->db->insert_id();
 		} else {
-			$newuhf = ($this->gender . $this->region . $this->breed . substr($this->uhf, 15));
+			$newuhf = ("01" . $this->region . $this->breed . substr($this->uhf, 15, 7) . $this->gender);
 			$this->db->where("uhf", $this->uhf);
 			$this->db->update("Dog", array(
 				"name" => $this->name,
@@ -92,13 +96,18 @@ class DogModel extends CI_Model {
 				"uhf" => $newuhf,
 				"image" => $this->image
 			));
+			$this->uhf = $newuhf;
 		}
-		$this->db->where("dogid", $this->getUhf());
+		$this->db->where("dogid", $this->uhf);
 		$this->db->delete("StaffDogAssocation");
-		$this->db->insert("StaffDogAssocation", array(
-			"staffid" => $this->trainer,
-			"dogid" => $this->getUhf()
-		));
+		if ($this->trainer !== null) {
+			$data = array(
+				"staffid" => $this->trainer,
+				"dogid" => $this->getUhf()
+			);
+			$this->db->insert("StaffDogAssocation",$data);
+		}
+
 		if ($this->db->trans_status() === FALSE)
 		{
 			$this->db->trans_rollback();

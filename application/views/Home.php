@@ -6,10 +6,9 @@
 		<?php include_once(APPPATH . "views/assets.php");?>
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a class="brand" href="#">RFID Guide Dog Management System</a>
 					<ul class="nav">
 						<li class="<?php if (strpos($url, "home") !== false) echo "active"; ?>"><a href="<?php echo site_url("home"); ?>">Home</a></li>
 						<?php include_once(APPPATH . "views/menubar.php");?>
